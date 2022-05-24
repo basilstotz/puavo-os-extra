@@ -1,0 +1,84 @@
+#!/bin/bash
+
+cd $(dirname $0)
+
+make-menu(){
+
+DIFF=$@
+    
+#alles start
+echo "{"
+#programms start
+echo "  \"programs\": {"
+FIRST_P=0
+for A in $DIFF;do
+	 if test $FIRST_P = 0;then
+	     FIRST_P=1
+	 else
+	     echo ","
+	 fi	
+         echo "        \"$A\": {"
+         echo "            \"tags\": \"default\""
+         echo -n "         }"
+done
+echo        
+echo -n "   }"
+#programms ende
+#categorie start
+FIRST_A=0
+echo ","
+echo "  \"menus\": {"
+echo "     \"menu-newapps\": {"
+echo "        \"name\":  \"Mehr Programme\","
+#echo "        \"position\": 20,"
+echo "        \"icon\": \"/usr/share/pixmaps/moreapps.png\","
+echo "        \"hidden_by_default\": false,"
+
+#programm array start
+echo "        \"programs\": ["
+FIRST_P=0
+for A in $DIFF;do
+	 if test $FIRST_P = 0;then
+	     FIRST_P=1
+	 else
+	     echo ","
+	 fi	
+         echo -n "          \"$A\""
+done
+echo 
+echo "        ]"
+# programm array ende
+echo "     }"
+echo "  }"
+# categories ende
+echo "}"
+#alles ende
+
+}
+
+
+# main
+
+pfad="/etc/puavo-image/applications.list"
+if test -f $pfad;then
+    ALT=$(cat $pfad | xargs -n1 basename -s .desktop)
+else
+    echo "no inputfile"
+    exit 0
+fi
+
+NEU=$(ls /usr/share/applications/*.desktop | xargs -n1 basename -s .desktop )
+
+DIFF=""
+for A in $NEU ;do
+   if ! [[ "$ALT" == *$A* ]]; then
+	DIFF="$DIFF $A"    
+   fi
+done
+
+#if test "$UID" = "0";then
+    make-menu "$DIFF" > /etc/puavomenu/menudata/80-menu-moreapps.json
+#else
+#    mkdir -p $HOME/.config/puavomenu/menudata/
+#    make-menu $DIFF > $HOME/.config/puavomenu/menudata/80-menu-moreapps.json  
+#fi

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Telegram
+Comment=Telegram-Client
+Exec=/opt/telegram/Telegram
+Terminal=false
+Type=Application
+Icon=telegram.png
+Categories=Application
+Keywords=Utility
+Name[de]=Telegram
+GenericName[de]=Telegram-Client
+Comment[de]=telegram-Client

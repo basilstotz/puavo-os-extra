@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=WALC
+Comment=Whatsapp-Client
+Exec=/opt/walc/WALC.AppImage --no-sandbox
+Terminal=false
+Type=Application
+Icon=walc.png
+Categories=Application
+Keywords=System;Utility
+Name[de]=walc
+GenericName[de]=Whatsapp-Client
+Comment[de]=Whatsapp-Client

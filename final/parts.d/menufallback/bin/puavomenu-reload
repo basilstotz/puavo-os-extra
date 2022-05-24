@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo  'reloading puavomenu data'
+for puavomenu_socket in /run/user/*/puavomenu; do
+    echo reload-menudata | nc -U -w 5 "$puavomenu_socket" || true
+done
+exit 0

@@ -1,0 +1,153 @@
+{
+  "menus": {
+    "menu-gnome": {
+      "icon": "/usr/share/icons/gnome/48x48/places/gnome-foot.png",
+      "name": "Basis",
+      "programs": [
+        "org.gnome.Calendar",
+          "org.gnome.Contacts",
+	  "org.gnome.Geary",
+        "org.gnome.Todo",
+        "org.gnome.Maps",
+        "org.gnome.clocks",
+        "org.gnome.Weather.Application",
+        "org.gnome.Calculator",
+          "org.gnome.Cheese",
+	 " org.gnome.Totem.desktop",
+          "org.gnome.SoundRecorder",
+	  "org.gnome.Epiphany",
+        "org.gnome.Totem",
+        "org.gome.Screenshot",
+        "linphone",
+        "org.gnome.gThumb",
+        "gthumb",
+          "org.gnome.Nautilus",
+	  "apostrophe",
+        "gnome-control-center"
+      ]
+    },
+    "menu-whiteboard": {
+      "name": {
+        "en": "Interactive whiteboards",
+        "fi": "Älytaulut",
+        "sv": "Interaktiva tavlor",
+        "de": "Whiteboard"
+      },
+      "icon": "/usr/share/icons/Faenza/categories/96/applications-science.png",
+      "programs": [
+        "openboard",
+        "xournal",
+        "com.github.xournalpp.xournalpp",
+        "activsoftware",
+        "activesoftware-nc",
+        "vmarkerutility",
+          "classroomscreen",
+	  "wbo",
+	  "cafepitch","remarkise",
+        "Write",
+          "onboard",
+          "screenkey",
+        "libreoffice-impress",
+          "impressive",
+	  "sozi",
+	  "presenta",
+	  "codimd",
+          "com.obsproject.Studio",
+	  "obs-tablet-remote",
+        "kodi",
+        "mimio-notebook",
+        "smarttech-notebook"
+      ]
+    },
+    "menu-online-comm": {
+      "name": "Online Verbinden",
+      "icon": "/usr/share/pixmaps/qbrowser.png",
+      "programs": [
+        "jitsi-meet",
+        "amxa-talk",
+        "bigbluebutton",
+        "mornin",
+          "mozilla-hubs",
+	  "workadventure",
+	  "meetzi",
+        "discord",
+        "matrix-riot",
+        "nheko",
+          "cryptpad",
+	  "codimd",
+        "linphone",
+          "pidgin",
+	  "nuudel",
+        "empathy",
+          "mumble",
+	  "mumble-server",
+        "skype",
+        "Zoom",
+          "teams",
+	  "Write",
+	  "telegram",
+	  "walc",
+	  "signal-desktop"
+      ]
+    },
+    "menu-touch": {
+      "name": "Stift & Touch",
+      "icon": "/usr/share/pixmaps/stylus.jpg",
+	"programs": [
+	    "gimp",
+	    "openboard",
+	    "xjournal",
+        "com.github.xournalpp.xournalpp",	    
+        "org.kde.krita",	    
+	    "Write"
+      ]
+    },    
+    "menu-google-apps": {
+      "name": "Google Apps",
+	"icon": "/usr/share/icons/hicolor/48x48/apps/chromium.png",
+        "hidden_by_default": true, 
+      "programs": [
+        "google-chrome",
+        "google-drive",
+        "google-classroom",
+        "google-calendar",
+        "gmail",
+        "google-sheets",
+        "google-docs",
+        "google-slides",
+        "google-forms",
+        "google-meet",
+        "google-keep",
+        "google-sites"
+      ]
+    }
+  },
+  "categories": {
+      "category-main": {
+        "name": {
+          "en": "All programs",
+          "fi": "Kaikki ohjelmat",
+          "sv": "Alla program",
+          "de": "Programme"
+        },
+        "position": 0,
+	"programs": [ "school-user-list" ],
+        "menus": [
+          "menu-gnome",
+          "menu-internet",
+          "menu-graphics",
+          "menu-office",
+          "menu-audio",
+          "menu-programming",
+          "menu-games",
+          "menu-games-personal",
+            "menu-online-comm",
+	    "menu-touch",
+          "menu-whiteboard",
+          "menu-applications",
+            "menu-google-apps",
+	    "menu-newapps"
+        ]
+      }
+  }
+}
