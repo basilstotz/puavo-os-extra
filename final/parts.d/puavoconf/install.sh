@@ -19,7 +19,7 @@ done
 #puaco-conf-extra.service
 cat <<EOF > /etc/systemd/system/puavo-conf-extra.service
 [Unit]
-Description=Setup GnuPG of Repo
+Description=Setup Extra Puavo-Conf Vars
 [Service]
 Type=oneshot
 ExecStart=/usr/local/sbin/puavo-conf-extra
