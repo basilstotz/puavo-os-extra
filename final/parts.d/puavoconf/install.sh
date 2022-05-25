@@ -32,13 +32,13 @@ systemctl enable puavo-conf-extra.service
 cat <<'EOF' > /usr/local/sbin/puavo-conf-extra
 #!/bin/sh
 touch /state/etc/puavo/local/puavo-conf.extra
-OLD=$(cat /state/etc/puavo/local/puavo-conf.extra)
+OLD="$(cat /state/etc/puavo/local/puavo-conf.extra)"
 EXTRA="$(puavo-conf puavo.puavoconf.extra 2>/dev/null)"
-ALL="${EXTRA} ${OLD} puavo.puavoconf.extra"
-NEW=""
+ALL="${EXTRA} ${OLD}"
+NEW="puavo.puavoconf.extra"
 for VAR in ${ALL}; do
    if ! echo "${NEW}" | grep -q "$(echo ${VAR}|cut -d= -f1)"; then
-      NEW="${VAR}\n
+      NEW="${NEW}\n${VAR}"
    fi
 done
 echo "${NEW}" > /state/etc/puavo/local/puavo-conf.extra
