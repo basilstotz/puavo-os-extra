@@ -34,14 +34,14 @@ cat <<'EOF' > /usr/local/sbin/puavo-conf-extra
 touch /state/etc/puavo/local/puavo-conf.extra
 OLD=$(cat /state/etc/puavo/local/puavo-conf.extra)
 EXTRA="$(puavo-conf puavo.puavoconf.extra 2>/dev/null)"
-NEW="$EXTRA puavo.puavoconf.extra"
-for VAR in $NEW; do
-   KVAR=$(echo $VAR|cut -d= -f1)
-   if ! echo "$OLD" | grep -q "$KVAR"; then
-      OLD="$OLD\n$KVAR"
+ALL="${EXTRA} ${OLD} puavo.puavoconf.extra"
+NEW=""
+for VAR in ${ALL}; do
+   if ! echo "${NEW}" | grep -q "$(echo ${VAR}|cut -d= -f1)"; then
+      NEW="${VAR}\n
    fi
 done
-echo "$OLD" > /state/etc/puavo/local/puavo-conf.extra
+echo "${NEW}" > /state/etc/puavo/local/puavo-conf.extra
 exit 0
 EOF
 chmod +x /usr/local/sbin/puavo-conf-extra
