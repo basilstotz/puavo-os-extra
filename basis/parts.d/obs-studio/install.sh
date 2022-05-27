@@ -8,10 +8,10 @@ echo *****************************obs***************************************
 
 # install and unpack
 
-#latest obs-studio (self compiled)
-#if ! test -f obs-studio_20210107-git-1_amd64.deb;then
-#    wget https://www.amxa.ch/debian/packages/obs-studio_20210107-git-1_amd64.deb
-#fi
+latest obs-studio (self compiled)
+if ! test -f obs-studio_20210107-git-1_amd64.deb;then
+    wget https://www.amxa.ch/debian/packages/obs-studio_20210107-git-1_amd64.deb
+fi
 
 #plugin websocket
 if ! test -e obs-websocket-4.8.0-1_amd64.deb;then
