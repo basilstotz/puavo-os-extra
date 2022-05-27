@@ -5,6 +5,8 @@ cd $(dirname $0)
 #prepare mandatory puavo-conf vars
 PFAD="/state/etc/puavo/local"
 
+mkdir -p $PFAD
+
 test -f "$PFAD/puavo-conf.extra" && rm "$PFAD/puavo-conf.extra"
 touch "$PFAD/puavo-conf.extra"
 
@@ -32,7 +34,10 @@ systemctl enable puavo-conf-extra.service
 cat <<'EOF' > /usr/local/sbin/puavo-conf-extra
 #!/bin/sh
 touch /state/etc/puavo/local/puavo-conf.extra
-OLD="$(cat /state/etc/puavo/local/puavo-conf.extra)"
+if ! test -f /state/etc/puavo/local/puavo-conf.extra.dist; then
+   cp /state/etc/puavo/local/puavo-conf.extra /state/etc/puavo/local/puavo-conf.extra.dist
+fi
+OLD="$(cat /state/etc/puavo/local/puavo-conf.extra.dist)"
 EXTRA="$(puavo-conf puavo.puavoconf.extra 2>/dev/null)"
 ALL="${EXTRA} ${OLD}"
 NEW="puavo.puavoconf.extra"
