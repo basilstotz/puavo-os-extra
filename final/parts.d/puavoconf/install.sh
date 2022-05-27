@@ -18,36 +18,6 @@ for PUAVOCONF in $(cat puavoconf.list); do
     echo "$PUAVOCONF"                >> "$PFAD/puavo-conf.extra" 
 done
 
-#puaco-conf-extra.service
-cat <<EOF > /etc/systemd/system/puavo-conf-extra.service
-[Unit]
-Description=Setup Extra Puavo-Conf Vars
-[Service]
-Type=oneshot
-ExecStart=/usr/local/sbin/puavo-conf-extra
-[Install]
-WantedBy=multi-user.target
-EOF
-systemctl enable puavo-conf-extra.service
-
-
-cat <<'EOF' > /usr/local/sbin/puavo-conf-extra
-#!/bin/sh
-touch /etc/puavo-conf/puavo-conf.extra
-OLD="$(cat /etc/puavo-conf/puavo-conf.extra)"
-EXTRA="$(puavo-conf puavo.puavoconf.extra 2>/dev/null)"
-ALL="${EXTRA} ${OLD}"
-NEW="puavo.puavoconf.extra"
-for VAR in ${ALL}; do
-   if ! echo "${NEW}" | grep -q "$(echo ${VAR}|cut -d= -f1)"; then
-      NEW="${NEW}\n${VAR}"
-   fi
-done
-echo "${NEW}" > /etc/puavo-conf/puavo-conf.extra
-exit 0
-EOF
-chmod +x /usr/local/sbin/puavo-conf-extra
-
 #install preinit script
 cat <<'EOF' > /etc/puavo-conf/scripts/setup_extra_vars
 #!/bin/sh

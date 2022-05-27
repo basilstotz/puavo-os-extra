@@ -1,1 +1,8 @@
-puavo.puavobox.ip
+puavo.virtualltsp.puavobox
+puavo.dnsfilter.address
+puavo.dnsfilter.youtube
+puavo.wireguard.endpoint
+puavo.wireguard.publickey
+puavo.wireguard.preshared
+puavo.wireguard.restapi
+puavo.wireguard.mydomain
