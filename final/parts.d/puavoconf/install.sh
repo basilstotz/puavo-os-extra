@@ -3,7 +3,7 @@
 cd $(dirname $0)
 
 #prepare mandatory puavo-conf vars
-PFAD="/state/etc/puavo/local"
+PFAD="/etc/puavo-conf"
 
 mkdir -p $PFAD
 
@@ -33,11 +33,8 @@ systemctl enable puavo-conf-extra.service
 
 cat <<'EOF' > /usr/local/sbin/puavo-conf-extra
 #!/bin/sh
-touch /state/etc/puavo/local/puavo-conf.extra
-if ! test -f /state/etc/puavo/local/puavo-conf.extra.dist; then
-   cp /state/etc/puavo/local/puavo-conf.extra /state/etc/puavo/local/puavo-conf.extra.dist
-fi
-OLD="$(cat /state/etc/puavo/local/puavo-conf.extra.dist)"
+touch /etc/puavo-conf/puavo-conf.extra
+OLD="$(cat /etc/puavo-conf/puavo-conf.extra)"
 EXTRA="$(puavo-conf puavo.puavoconf.extra 2>/dev/null)"
 ALL="${EXTRA} ${OLD}"
 NEW="puavo.puavoconf.extra"
@@ -46,7 +43,7 @@ for VAR in ${ALL}; do
       NEW="${NEW}\n${VAR}"
    fi
 done
-echo "${NEW}" > /state/etc/puavo/local/puavo-conf.extra
+echo "${NEW}" > /etc/puavo-conf/puavo-conf.extra
 exit 0
 EOF
 chmod +x /usr/local/sbin/puavo-conf-extra
@@ -55,8 +52,8 @@ chmod +x /usr/local/sbin/puavo-conf-extra
 cat <<'EOF' > /etc/puavo-conf/scripts/setup_extra_vars
 #!/bin/sh
 set -eu
-test -f /state/etc/puavo/local/puavo-conf.extra || exit 0
-for pcl in $(cat /state/etc/puavo/local/puavo-conf.extra); do
+test -f /etc/puavo-conf/puavo-conf.extra || exit 0
+for pcl in $(cat /etc/puavo-conf/puavo-conf.extra); do
     name=$( echo "${pcl}" | cut -d= -f1 )
     value=$( echo "${pcl}" | cut -s -d= -f2 )
     puavo-conf --set-mode add "${name}"  "${value}" 2>/dev/null || true
