@@ -17,7 +17,6 @@ sozi
 styluslab
 telegram
 thymiosuite
-typora
 walc
 write
 xournalpp
@@ -33,7 +32,7 @@ cups-konicaminolta
 cups-triumpfadler
 cups-kyocera
 cups-samsung
-font-grundschrift
 font-basisschrift
+font-grundschrift
 font-kleist
-worksheetcrafter
+kmod-v4l2loopback
