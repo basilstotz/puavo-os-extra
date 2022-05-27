@@ -8,14 +8,22 @@ echo *****************************obs***************************************
 # download and unpack
 cd $(dirname $0)
 
+cat <<EOF > ./v4l2loopback-ini.c
+#include <stdio.h>
+main()
+{
+  setuid(0);
+  system("/opt/v4l2loopback/install.sh");
+}
+EOF
 
-if ! test -d v4l2loopback;then
-   git clone https://github.com/umlaeute/v4l2loopback
-fi    
 if ! test -f v4l2loopback-ini;then
    make v4l2loopback-ini
 fi    
 
+if ! test -d v4l2loopback;then
+   git clone https://github.com/umlaeute/v4l2loopback
+fi    
  
 #install
 test -d /opt/v4l2loopback || mkdir -p /opt/v4l2loopback
