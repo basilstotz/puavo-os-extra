@@ -1,10 +1,11 @@
 puavo.virtualltsp.puavobox
-puavo.dnsfilter.address
-puavo.dnsfilter.youtube
+puavo.virtualltsp.enable
+puavo.webfilter.dnsprovider
+puavo.webfilter.safetube
+puavo.webfilter.safesearch
 puavo.wg.peer.endpoint
-puavo.wg.peer.publickey
-puavo.wg.peer.preshared
-puavo.wg.peer.allowedips
+puavo.wg.peer.public
 puavo.wg.network.name
+puavo.wg.network.skope
 puavo.wg.restapi.url
 puavo.wg.restapi.key

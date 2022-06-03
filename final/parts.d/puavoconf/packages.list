@@ -3,6 +3,7 @@ bigtouch=latest
 puavomenu=latest
 virtualltsp=latest
 webapps=latest
+wireguard
 easytax
 etcher
 edulo
@@ -20,13 +21,12 @@ thymiosuite
 walc
 write
 xournalpp
-rechentraining6
-sprachstarken
 blitzrechnen
 leseschlau
 newworld
 rechentraining
-appimagelauncher
+rechentraining6
+sprachstarken
 cups-canon
 cups-konicaminolta
 cups-triumpfadler
