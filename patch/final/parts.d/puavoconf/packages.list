@@ -1,9 +1,8 @@
 amxabasis=latest
-bigtouch=latest
 puavomenu=latest
-virtualltsp=latest
 webapps=latest
-wireguard
+virtualltsp=remove
+bigtouch=remove
 easytax
 etcher
 edulo

@@ -1,0 +1,61 @@
+#!/bin/sh
+
+KEEP=true
+PLACE="/opt/amxapatch"
+
+if test -z "$1"; then
+    echo "usage: $0 /path/to/patch_dir" >&2
+    exit 1
+fi
+
+if ! test -d "$1"; then
+    echo "error: $1 not found" >&2
+    exit 1
+fi
+
+
+if ! test "$(find $1 -maxdepth 1 -executable -type f| wc -l)" = 1; then
+    echo "error: there must be exact one ececutable in $1" >&2
+    exit 1
+fi
+
+DIR=$1
+EXE="$(basename $(find $1 -maxdepth 1 -executable -type f))"
+
+
+#############################################################################
+
+echo "#!/bin/sh"
+echo ""
+
+if $KEEP; then
+    echo "mkdir -p $PLACE"
+    echo "cat <<'EOF' | base64 -d | tar -x -z -C $PLACE"
+else    
+    echo "PLACE=\$(mktemp -d)"
+    echo "cat <<'EOF' | base64 -d | tar -x -z -C \$PLACE"
+fi
+
+cd $DIR
+tar -c -z -f - . | base64
+
+if  $KEEP; then
+    echo "EOF"
+    echo ""
+#    echo "$PLACE/$EXE"
+    echo ""
+    echo "exit \$?"
+else
+    echo "EOF"
+    echo ""
+#    echo "\$PLACE/$EXE"
+    echo "RET=\$?"
+    echo "rm -rf \$PLACE"
+    echo ""
+    echo "exit \$RET"
+fi
+
+
+############################################################################
+
+exit 0

@@ -1,0 +1,155 @@
+#!/bin/sh
+
+echo "**************************************************************" 1>&2
+echo "*                                                            *" 1>&2
+echo "*                     Hello Chroot                           *" 1>&2
+echo "*                                                            *" 1>&2
+echo "**************************************************************" 1>&2
+UPDATED=1
+ERROR=0
+
+CHECKLIST=""
+
+PLACE="$(dirname $0)";
+
+#touch /etc/puavo-image/debs.list
+#touch /etc/puavo-image/parts.list
+
+check(){
+    if test $? = 0;then
+        echo "  ok"
+    else
+        CHECKLIST="$CHECKLIST $1"
+	echo "  error!"
+	ERROR=1
+    fi
+}
+
+
+apply(){
+    
+    PFAD=$1
+    #bin
+    if test -d $PFAD/bin.d;then
+	if test -n "$(ls $PFAD/bin.d|grep .sh)";then
+	    echo "**************************************************************" 1>&2
+	    echo "                          bin                                *" 1>&2
+	    echo "**************************************************************" 1>&2
+	    for B in $(ls $PFAD/bin.d);do
+		if test -x $PFAD/bin.d/$B;then
+		    echo -n $B                                                    1>&2
+		    $PFAD/bin.d/$B
+		    check  $B                                                       1>&2
+		fi 
+	    done
+	fi
+    fi
+
+    #files
+    if test -d $PFAD/files.d;then
+	if test -n "$(ls $PFAD/files.d/)";then
+	    echo "**************************************************************" 1>&2
+	    echo "                         files                               *" 1>&2
+	    echo "**************************************************************" 1>&2
+	    cp -r $PFAD/files.d/* /
+	    echo "ok"                                                             1>&2
+	fi
+    fi
+
+    #lists
+    if test -d $PFAD/lists.d;then
+	LISTS="$(ls $PFAD/lists.d|grep .list|grep -v off|xargs)"
+	if test -n "$LISTS";then
+	    echo "**************************************************************" 1>&2
+	    echo "                         lists                               *" 1>&2
+	    echo "**************************************************************" 1>&2
+	    echo "$LISTS :"							      1>&2
+	    apt-get update
+	    UPDATED=0
+	    PAKS=""
+	    for L in $LISTS;do
+		PAKS="$PAKS $(cat $PFAD/lists.d/$L|xargs) "
+	    done
+	    echo $PAKS | fmt                                                      1>&2
+	    apt-get -y install $PAKS
+	    check  "lists"                                                        1>&2
+	fi
+
+    fi
+
+    #debs
+    if test -d $PFAD/debs.d;then
+	if test -n "$(ls $PFAD/debs.d|grep .deb)";then
+	    echo "**************************************************************" 1>&2
+	    echo "                         debs                                *" 1>&2
+	    echo "**************************************************************" 1>&2
+	    for D in $(ls $PFAD/debs.d/*.deb);do
+		 echo $(basename $D)                                              1>&2
+
+		 echo "$(basename $D | cut -f1 -d_ ) " >> /etc/puavo-image/debs.list
+
+		 dpkg -i $D
+		 #check
+	    done
+	    if test $UPDATED = 1;then
+		apt-get update
+		UPDATED=0
+	    fi
+	    echo -n "*debs  dependencies*"                                         1>&2
+	    apt-get -y -f install
+	    check "*debs dependencies*"                                            1>&2
+	fi
+    fi
+
+    #parts
+    if test -d $PFAD/parts.d;then
+	if test -n "$(ls $PFAD/parts.d/)";then
+	    echo "**************************************************************" 1>&2
+	    echo "                         parts                               *" 1>&2
+	    echo "**************************************************************" 1>&2
+	    if test $UPDATED = 1;then
+		apt-get update
+	    fi
+	    for P in $(ls $PFAD/parts.d/);do
+		if test -x $PFAD/parts.d/$P/install.sh;then
+		     echo -n $P                                                   1>&2
+
+		     echo "$P " >> /etc/puavo-image/parts.list
+
+
+		     $PFAD/parts.d/$P/install.sh
+		     check $P                                                     1>&2
+		fi
+	    done
+	    echo -n "*parts dependencies*"                                           1>&2
+	    apt-get -y -f install
+	    check "*parts dependencies*"                                          1>&2
+	fi
+    fi
+}
+
+for TEIL in "basis" "final"; do
+    apply $PLACE/$TEIL
+done
+
+
+echo "**************************************************************" 1>&2
+echo "*                                                            *" 1>&2
+echo "*                     Goodbye Chroot                         *" 1>&2
+echo "*                                                            *" 1>&2
+echo "**************************************************************" 1>&2
+echo                                                                  1>&2
+
+if test $ERROR = 0;then
+    echo "info: chroot ends successfully"                             1>&2
+else
+    echo "error(s) occurred in:"                                      1>&2
+    echo $CHECKLIST|fmt                                               1>&2
+fi
+echo                                                                  1>&2
+
+echo                                                                  1>&2
+echo "**************************************************************" 1>&2
+echo "**************************************************************" 1>&2
+
+exit $ERROR
