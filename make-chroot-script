@@ -3,57 +3,49 @@
 KEEP=true
 PLACE="/opt/amxapatch"
 
-if test -z "$1"; then
+DIR="$1"
+
+if test -z "$DIR"; then
     echo "usage: $0 /path/to/patch_dir" >&2
     exit 1
 fi
 
-if ! test -d "$1"; then
-    echo "error: $1 not found" >&2
+if ! test -d "$DIR"; then
+    echo "error: $DIR not found" >&2
     exit 1
 fi
-
-
-if ! test "$(find $1 -maxdepth 1 -executable -type f| wc -l)" = 1; then
-    echo "error: there must be exact one ececutable in $1" >&2
-    exit 1
-fi
-
-DIR=$1
-EXE="$(basename $(find $1 -maxdepth 1 -executable -type f))"
-
 
 #############################################################################
 
 echo "#!/bin/sh"
 echo ""
 
+# make installdir
 if $KEEP; then
-    echo "mkdir -p $PLACE"
-    echo "cat <<'EOF' | base64 -d | tar -x -z -C $PLACE"
+    echo "PLACE=$PLACE"
+    echo "mkdir -p \$PLACE"
 else    
     echo "PLACE=\$(mktemp -d)"
-    echo "cat <<'EOF' | base64 -d | tar -x -z -C \$PLACE"
 fi
 
+# populate it an run-parts
+echo ""
+echo "cat <<'EOF' | base64 -d | tar -x -z -C \$PLACE"
 cd $DIR
 tar -c -z -f - . | base64
+echo "EOF"
+echo ""
+echo "run-parts --regex=\"^[0-9]{2}-.*$\"  \$PLACE"
+echo "RET=\$?"
 
-if  $KEEP; then
-    echo "EOF"
+# maybe remove it
+if ! $KEEP; then
     echo ""
-#    echo "$PLACE/$EXE"
-    echo ""
-    echo "exit \$?"
-else
-    echo "EOF"
-    echo ""
-#    echo "\$PLACE/$EXE"
-    echo "RET=\$?"
     echo "rm -rf \$PLACE"
-    echo ""
-    echo "exit \$RET"
 fi
+
+echo ""
+echo "exit \$RET"
 
 
 ############################################################################
