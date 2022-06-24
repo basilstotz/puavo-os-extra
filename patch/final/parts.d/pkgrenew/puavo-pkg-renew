@@ -1,0 +1,32 @@
+#!/bin/sh
+
+TIME=$(puavo-conf puavo.pkgrenew.time 2>/dev/null)
+WAIT=$(puavo-conf puavo.pkgrenew.wait 2>/dev/null)
+
+test -n "$TIME" || TIME=120
+test -n "$WAIT" || WAIT=3600
+
+HOSTTYPE=$(puavo-conf puavo.hosttype)
+#ADMIN=$(puavo-conf puavo.admin.personally_administered)
+
+menu(){
+    test -n "$(command -v puavomenu-moreapps)"  &&  puavomenu-moreapps
+    test -n "$(command -v puavomenu-reload)" &&  puavomenu-reload  
+}
+
+if test "$HOSTTYPE" = "laptop"; then
+#    menu
+    sleep "$WAIT"
+    while true; do
+	puavo-pkg-update
+	menu
+	sleep "$TIME"
+    done
+else
+    sleep infinity
+fi
+
+#never come here!
+exit 0
+
+
