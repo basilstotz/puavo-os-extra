@@ -10,7 +10,10 @@ cd $(dirname $0)
 
 cat <<EOF > ./v4l2loopback-ini.c
 #include <stdio.h>
-main()
+#include <unistd.h>
+#include <stdlib.h>
+
+int main()
 {
   setuid(0);
   system("/opt/v4l2loopback/install.sh");
