@@ -1,8 +1,12 @@
 amxabasis=latest
 puavomenu=latest
 webapps=latest
+kmod-v4l2loopback=latest
 virtualltsp=remove
 bigtouch=remove
+devtools
+clientapi
+webfilter
 easytax
 etcher
 edulo
@@ -14,6 +18,7 @@ lumi
 marktext
 onlyoffice
 rpiimager
+snapform
 sozi
 styluslab
 telegram
@@ -35,4 +40,3 @@ cups-samsung
 font-basisschrift
 font-grundschrift
 font-kleist
-kmod-v4l2loopback
