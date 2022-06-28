@@ -1,5 +1,5 @@
 #!/bin/sh
-     
+
 cd $(dirname "$0")
 
 DIST=$(cat /etc/issue.net |cut -d\  -f3)

@@ -1,5 +1,5 @@
 #!/bin/sh
-    
+
 cd $(dirname $0)
 
 #if ! grep -q 10 /etc/issue.net; then exit 0;fi 
