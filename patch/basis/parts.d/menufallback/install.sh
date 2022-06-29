@@ -7,7 +7,7 @@ cd $(dirname $0)
 cp ./91-tab-main.json /etc/puavomenu/menudata/90-tab-main.json
 cp ./91-tab-subjects.json /etc/puavomenu/menudata/90-tab-subjects.json
 
-cp ./newapps.png /usr/share/pixmaps/.
+#cp ./newapps.png /usr/share/pixmaps/.
 cp ./moreapps.png /usr/share/pixmaps/.
 
 cp ./bin/puavomenu-reload /usr/local/bin/.
