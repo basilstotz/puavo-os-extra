@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cd $(dirname "$0")
+
+curl -s https://install.zerotier.com | bash
+
+
+
+
+echo "*****************************zerotiers***************************************"

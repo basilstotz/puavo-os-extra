@@ -17,4 +17,5 @@ puavo.pkgrenew.wait
 puavo.pkgrenew.enable
 puavo.clientapi.enable
 puavo.clientapi.server
+puavo.zerotier.network
 
