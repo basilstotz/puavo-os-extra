@@ -9,15 +9,19 @@ SOURCE=$2
 UNPACKED="unpacked.img"
 SCRIPT="$(dirname $0)/make-chroot-script"
 
+PUAVO_IMG_CLONE="$(dirname $0)/puavo-img-clone"
+PUAVO_IMG_CHROOT="$(dirname $0)/puavo-img-chroot"
+
+
 test -f ${UNPACKED} && rm ${UNPACKED}
 
 DIST=$(basename $SOURCE|cut -d- -f4)
 IMAGE="${OSNAME}-${CLASS}-${DIST}-$(date +%Y-%m-%d-%H%M%S)-amd64.img"
 
 
-puavo-img-clone -t ext4 ${SOURCE} ${UNPACKED}
-${SCRIPT} ${PATCH} | puavo-img-chroot ${UNPACKED} 
-puavo-img-clone -t squashfs ${UNPACKED} ${IMAGE}
+${PUAVO_IMG_CLONE} -t ext4 ${SOURCE} ${UNPACKED}
+${SCRIPT} ${PATCH} | ${PUAVO_IMG_CHROOT} ${UNPACKED} 
+${PUAVO_IMG_CLONE} -t squashfs ${UNPACKED} ${IMAGE}
 
 exit
 

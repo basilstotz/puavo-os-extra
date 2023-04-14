@@ -1,4 +1,4 @@
-SOURCE:="path/to/opinsys-os-opinsys-bullseye-2022-06-22-145634-amd64.imt"
+SOURCE:="../source/opinsys-os-opinsys-bullseye-2023-03-28-074633-amd64.img"
 PATCH:="./patch"
 
 .PHONY: build
