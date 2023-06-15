@@ -3,7 +3,8 @@
 cd $(dirname $0)
 
 
-    cp ./puavo-pkg-renew /usr/local/sbin/puavo-pkg-renew
+    cp ./sbin/* /usr/local/sbin/.
+    cp ./bin/* /usr/local/bin/.
 
     cat <<EOF > /etc/systemd/system/puavo-pkg-renew.service
 [Unit]

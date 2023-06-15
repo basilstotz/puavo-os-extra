@@ -130,7 +130,9 @@ apply(){
 
 
 for TEIL in "basis" "final"; do
-    apply $PLACE/$TEIL
+    if test -d $PLACE/$TEIL; then
+        apply $PLACE/$TEIL
+    fi
 done
 
 

@@ -10,8 +10,9 @@ cp ./91-tab-subjects.json /etc/puavomenu/menudata/90-tab-subjects.json
 #cp ./newapps.png /usr/share/pixmaps/.
 cp ./moreapps.png /usr/share/pixmaps/.
 
-cp ./bin/puavomenu-reload /usr/local/bin/.
-cp ./bin/puavomenu-moreapps /usr/local/sbin/.
+# moved to basis/pkgrenew!
+#cp ./bin/puavomenu-reload /usr/local/bin/.
+#cp ./bin/puavomenu-moreapps /usr/local/sbin/.
 
 
 #!/bin/sh
