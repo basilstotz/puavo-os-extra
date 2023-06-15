@@ -8,14 +8,17 @@ case  $DIST in
     10)
        exit 0
        ;;
-    11|12)
+    11)
+	DISTRO="bullseye"
+       ;;
+    12)
+	DISTRO="bookworm"
        ;;
     *)
 	exit 0
        ;;
 esac
 
-DISTRO="bullseye" 
 curl https://repo.waydro.id/waydroid.gpg --output /usr/share/keyrings/waydroid.gpg
 echo "deb [signed-by=/usr/share/keyrings/waydroid.gpg] https://repo.waydro.id/ $DISTRO main" > /etc/apt/sources.list.d/waydroid.list
 apt-get update
