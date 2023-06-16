@@ -7,6 +7,7 @@ build: build-deb build-script
 
 .PHONY: build-script
 build-script:
+	@echo "puavo-os-extra-chroot.sh wird gebaut"
 	@./bin/make-chroot-script $(PATCH) > puavo-os-extra-chroot.sh
 	@chmod +x puavo-os-extra-chroot.sh
 
