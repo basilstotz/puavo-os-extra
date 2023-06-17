@@ -1,4 +1,4 @@
-SOURCE:="../source/opinsys-os-opinsys-bullseye-2023-03-28-074633-amd64.img"
+SOURCE:="../source/opinsys-os-opinsys-bookworm-2023-05-09-080121-amd64.img"
 PATCH:="./patch"
 
 .PHONY: build
