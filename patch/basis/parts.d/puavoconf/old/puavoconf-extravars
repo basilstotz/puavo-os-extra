@@ -1,0 +1,14 @@
+#!/bin/sh
+ROOT="/images/puavo-pkg/root/packages/puavoconf"
+if test -d $ROOT; then
+    PACK=$(ls -t $ROOT | head -n1)
+    if test -n "$PACK"; then
+	if test -f $ROOT/$PACK/upstream/puavoconf/puavoconf.list; then
+	    cat $ROOT/$PACK/upstream/puavoconf/puavoconf.list
+	fi
+    fi
+fi
+
+
+
+
